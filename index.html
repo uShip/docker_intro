@@ -44,54 +44,88 @@
 					<h1>Intro to Docker</h1>
 					<p>
 						<small>Evan Machnic // <a href="http://twitter.com/emachnic">@emachnic</a></small>
-            			<br />
-            			<small>Bryson Reynolds // <a href="https://twitter.com/bryson_reynolds">@bryson_reynolds</a></small>
+            <br />
+            <small>Bryson Reynolds // <a href="https://twitter.com/bryson_reynolds">@bryson_reynolds</a></small>
 					</p>
 				</section>
-		        <section>
-		          <h1>Background</h1>
-		          <img src='images/large_v-trans.png' width='500' height='446' />
-		          <aside class='notes'>
-		            <ul>
-		              <li>Docker started as an internal project at dotCloud (a platform as a service company)</li>
-		              <li>Much of the tooling is what powered dotCloud's PaaS</li>
-		              <li>Released open-source in March 2013</li>
-					  <li>Since then it has recieved 25,600 github stars (aka the 20th most stared project on github)</li>
-		            </ul>
-		          </aside>
-		        </section>
-		        <section>
-					<h2>What Docker is and is not:</h2>
-					<section id="fragments">
-						<li class="fragment" data-fragment-index="0">
-							It is a virtual environemnt
-						</li>
-						</br>
-						<li class="fragment" data-fragment-index="1">
-							It is not a virtual machine
-						</li>
-					</section>
-					<aside class='notes'>
-	  		            <ul>
-	  		            	<li>Docker is a linux only virtual environemnt tool.</li>
-							<li>It builds on libcontainer, which uses the cgroups functionality to enable creation and running of multiple isolated Linux virtual environments on a single control host.</li>
-							<li>Unlike a vm it does not create a virtual computer with a specific OS, processors, and hardware emulation.</li>
-							<li>Virtual environment is a vm-lite: it rides on the already existing kernel’s image of the underlying hardware, and only creates a ‘container’ in which to run your apps, and even recreate the OS if you want since the OS is also just another app running on the kernel.</li>
-							<li>As a result, unlike virtual machines, there is very little overhead involved with running docker. </li>
-	  		            </ul>
-  		          </aside>
-				</section>
+        <section>
+          <h1>Background</h1>
+          <img src='images/large_v-trans.png' width='500' height='446' />
+          <aside class='notes' data-markdown>
+            * Docker started as an internal project at dotCloud (a platform as a service company)
+            * Much of the tooling is what powered dotCloud's PaaS
+            * Released open-source in March 2013
+            * Since then it has recieved 25,600 github stars (aka the 20th most stared project on github)
+          </aside>
+        </section>
+        <section>
+          <h1>What is Docker?</h1>
+        </section>
+        <section>
+          <h1>
+            Virtual Environment
+            <span class='fragment'>✔</span>
+          </h1>
+          <aside class='notes' data-markdown>
+            * Docker is a virtual environment tool
+            * It builds on libcontainer, which uses the cgroups functionality to enable creatiion an running of multiple isolated virtual environments on a single host
+          </aside>
+        </section>
+        <section>
+          <h1>
+            Virtual Machine
+            <br />
+            <span class='fragment'>✖︎</span>
+          </h1>
+          <aside class='notes' data-markdown>
+            * Unlike a vm, it does not create a virtual computer with a specific OS, processors, and hardware emulation
+            * Virtual env is a vm-lite: it rides on the already existing kernel's image of the underlying hardware and only creates a 'container' in which to run your apps, and even recreate the OS if you want, since the OS is also just another app running on the kernel
+            * As a result, unlike virtual machines, there is very little overhead involved with running docker. 
+          </aside>
+        </section>
 				<section>
-					<h2>How it works</h2>
-					<section id="fragments">
-						<li class="fragment" data-fragment-index="0">
-							Written in Go
-						</li>
-						</br>
-						<li class="fragment" data-fragment-index="1">
-							Uses helper scripts called (Dockerfiles) to build containers as lightweight machines.
-						</li>
-					</section>
+					<h1>How it works</h1>
+          <aside class='notes' data-markdown>
+            * So how does Docker work?
+          </aside>
+        </section>
+        <section>
+          <h1>Docker Engine</h1>
+          <img src='images/Engine.png' width='400' height='400' />
+          <aside class='notes' data-markdown>
+            * The Docker engine is written in Go and runs as a daemon
+            * This is responsible for building images and running the containers
+            * Multiple containers can run based on a single image
+          </aside>
+        </section>
+        <section>
+          <h1>Docker Client</h1>
+          <aside class='notes' data-markdown>
+            * Use the Docker CLI or REST API to interact with the Engine
+            * Tell Docker how to build the images and run containers
+          </aside>
+				</section>
+        <section>
+          <h1>Demo</h1>
+          <aside class='notes' data-markdown>
+            1. Start PG container
+                * `docker run --name postgres -e POSTGRES_PASSWORD=Password! -d postgres`
+            2. Show `database.yml` file
+            3. Show Dockerfile
+            4. Build uship_example image
+                * `docker build uship_example .`
+            5. Start uship_example container
+                * `docker run --name uship_example --link postgres:db -e POSTGRES_PASSWORD=Password! -p 3000:3000 -v "$PWD":/usr/src/app --rm uship_example`
+            6. Create user and show Rails log
+          </aside>
+        </section>
+				<section>
+					<h1>Thank You!</h1>
+					<p>
+						<small>Evan Machnic // <a href="http://twitter.com/emachnic">@emachnic</a></small>
+            <br />
+            <small>Bryson Reynolds // <a href="https://twitter.com/bryson_reynolds">@bryson_reynolds</a></small>
+					</p>
 				</section>
 			</div>
 		</div>
@@ -108,7 +142,7 @@
 				progress: true,
 				history: true,
 				center: true,
-				showNotes: true,
+				showNotes: false,
 
 				transition: 'slide', // none/fade/slide/convex/concave/zoom
 
